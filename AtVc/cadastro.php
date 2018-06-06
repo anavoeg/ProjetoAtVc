@@ -1,4 +1,8 @@
 
+<?php 
+require 'conn.php'; 
+require 'tratamento.php'; 
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,12 +21,12 @@
     <div class="container-fluid">
     <?php require('header.php');?>
         <div class="container">
-<form class="needs-validation" novalidate>
+<form class="needs-validation" novalidate method="POST">
 <div class="form-row">
       <div class="col-md-4 mb-3">
       <label for="validationCustomUsername">Email</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="validationCustomUsername" placeholder="E-mail" aria-describedby="inputGroupPrepend" required>
+        <input type="text" class="form-control" id="validationCustomUsername" name="email" placeholder="E-mail" aria-describedby="inputGroupPrepend" required>
         <div class="input-group-prepend">
         </div>
         <div class="invalid-feedback">
@@ -32,7 +36,7 @@
     </div>
     <div class="col-md-4 mb-3">
       <label for="validationCustom01">Senha</label>
-      <input type="text" class="form-control" id="validationCustom01" placeholder="Senha" required>
+      <input type="password" class="form-control" id="validationCustom01" name="senha" placeholder="Senha" required>
       <div class="valid-feedback">
         Parece Bom!
       </div>
@@ -42,7 +46,7 @@
     </div>
     <div class="col-md-4 mb-3">
       <label for="validationCustom02">Confirmar Senha</label>
-      <input type="text" class="form-control" id="validationCustom02" placeholder="Confirmar Senha" required>
+      <input type="password" class="form-control" id="validationCustom02" name="confirmar senha" placeholder="Confirmar Senha" required>
       <div class="valid-feedback">
         Parece Bom!
       </div>
@@ -54,14 +58,14 @@
   <div class="form-row">
     <div class="col-md-4 mb-3">
       <label for="validationCustom01">Nome</label>
-      <input type="text" class="form-control" id="validationCustom01" placeholder="Nome" required>
+      <input type="text" class="form-control" id="validationCustom01" name="nome" placeholder="Nome" required>
       <div class="valid-feedback">
         Parece Bom!
       </div>
     </div>
     <div class="col-md-6 mb-5">
       <label for="validationCustom02">Sobrenome</label>
-      <input type="text" class="form-control" id="validationCustom02" placeholder="Sobrenome" required>
+      <input type="text" class="form-control" id="validationCustom02" name="sobrenome" placeholder="Sobrenome" required>
       <div class="valid-feedback">
         Parece Bom!
       </div>
@@ -70,21 +74,21 @@
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <label for="validationCustom03">Bairro</label>
-      <input type="text" class="form-control" id="validationCustom03" placeholder="Bairro" required>
+      <input type="text" class="form-control" id="validationCustom03" name="bairro" placeholder="Bairro" required>
       <div class="invalid-feedback">
         Por favor, Forneça um Bairro Válido.
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <label for="validationCustom04">Cidade</label>
-      <input type="text" class="form-control" id="validationCustom04" placeholder="Cidade" required>
+      <input type="text" class="form-control" id="validationCustom04" name="cidade" placeholder="Cidade" required>
       <div class="invalid-feedback">
         Por favor, Forneça uma Cidade Válida.
       </div>
     </div>
     <div class="col-md-3 mb-3">
       <label for="validationCustom05">Estado</label>
-      <input type="text" class="form-control" id="validationCustom05" placeholder="Estado" required>
+      <input type="text" class="form-control" id="validationCustom05" nome="estado" placeholder="Estado" required>
       <div class="invalid-feedback">
         Por favor, Forneça um Estado Válido.
       </div>
@@ -93,21 +97,21 @@
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <label for="validationCustom03">Logradouro</label>
-      <input type="text" class="form-control" id="validationCustom03" placeholder="Logradouro" required>
+      <input type="text" class="form-control" id="validationCustom03" name="logradouro" placeholder="Logradouro" required>
       <div class="invalid-feedback">
         Por favor, Forneça um Logradouro.
       </div>
     </div>
     <div class="col-md-3 mb-2">
       <label for="validationCustom03">Número</label>
-      <input type="text" class="form-control" id="validationCustom03" placeholder="Número" required>
+      <input type="text" class="form-control" id="validationCustom03" name="numero" placeholder="Número" required>
       <div class="invalid-feedback">
         Por favor, Forneça um Número
       </div>
     </div>
     <div class="col-md-3 mb-2">
       <label for="validationCustom03">Complemento</label>
-      <input type="text" class="form-control" id="validationCustom03" placeholder="Complemento" required>
+      <input type="text" class="form-control" id="validationCustom03" name="complemento" placeholder="Complemento" required>
       <div class="invalid-feedback">
         Por favor, Forneça o Complemento
       </div>

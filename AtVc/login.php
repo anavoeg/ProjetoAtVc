@@ -1,3 +1,38 @@
+<?php
+session_start();
+require 'conn.php';
+    if(isset($_SESSION['usuario']) && empty($_SESSION['usuario']) == false){
+        header("Location: index.php");//se usuario tiver logado
+        exit; //para que todo o codigo abaixo nao seja executado
+    }
+
+    if(isset($_POST['email']) && empty($_POST['email']) == FALSE){ // verificando se a filtragem foi bem sucedida.
+            //filtrando por questões de segurança(SQL INJECTIONS) e armazenando os valores
+        $email = addslashes($_POST['email']);
+        
+        $senha = addslashes($_POST['senha']);
+
+        /*Valor retornado: Valor da requisitada variável em caso de sucesso, FALSE se o filtro falhar,
+         ou NULL se o parâmetro variable_name é um variável não definida.*/
+        
+        $sql = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND senha = :senha");
+        $sql -> bindValue(":email", $email);
+        
+        $sql -> bindValue(":senha", md5($senha));
+        $sql -> execute();
+        //verificar se achou retorno
+        if($sql -> rowCount() > 0){
+            $sql = $sql->fetch();//pegando os dados
+            $_SESSION['usuario'] = $sql['id'];
+            // header("Location: index.php");
+            echo "ENTROU";
+            exit; //para que todo o codigo abaixo nao seja executado
+        } else {
+            echo "<script type='text/javascript'>alert('Usuário ou Senha Incorretos.')</script>";
+        }
+        
+    }
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,7 +59,7 @@
 
 <div class="row" style="margin-top:20px">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-		<form role="form">
+		<form role="form" method="POST">
 			<fieldset>
 				<h2>Login</h2>
 				<hr class="colorgraph">
@@ -32,7 +67,7 @@
                     <input type="email" name="email" id="email" class="form-control input-lg" placeholder="E-mail">
 				</div>
 				<div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Senha">
+                    <input type="password" name="senha" id="password" class="form-control input-lg" placeholder="Senha">
 				</div>
 				<span class="button-checkbox">
 					<button type="button" class="btn" data-color="info">Lembrar-me</button>
@@ -45,7 +80,7 @@
                         <input type="submit" class="btn btn-lg btn-success btn-block" value="Entrar">
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6">
-						<a href="" class="btn btn-lg btn-primary btn-block">Cadastre-se</a>
+						<a href="cadastro.php" class="btn btn-lg btn-primary btn-block">Cadastre-se</a>
 					</div>
 				</div>
 			</fieldset>
